@@ -1,0 +1,31 @@
+{
+  "name": "webcomponent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "web-dev-server --open / --node-resolve",
+    "start:watch": "web-dev-server --open / --node-resolve --watch",
+    "test": "web-test-runner test/**/*.test.ts --node-resolve",
+    "test:watch": "web-test-runner test/**/*.test.ts --node-resolve --watch",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/dev-server-esbuild": "^1.0.4",
+    "@web/test-runner": "^0.20.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.4",
+    "lit-element": "^4.1.1",
+    "lit-html": "^3.2.1",
+    "marked": "^15.0.7",
+    "openai": "^4.87.3"
+  }
+}
