@@ -6,14 +6,6 @@ import DOMPurify from "dompurify";
 
 import OpenAI from "openai";
 
-const client = new OpenAI({
-  baseURL: "http://localhost:11434/v1/",
-
-  // required but ignored
-  apiKey: "ollama",
-  dangerouslyAllowBrowser: true,
-});
-
 type Role = "assistant" | "user";
 
 type Message = {
@@ -96,6 +88,26 @@ export class Chat extends LitElement {
   @property({ type: Boolean, state: true })
   accessor loading: Boolean = false;
 
+  @property({ type: String })
+  accessor model: string = "phi3.5";
+
+  @property({ type: String })
+  accessor endpoint: string = "http://localhost:11434/v1/";
+
+  client: OpenAI;
+
+  constructor() {
+    super();
+
+    this.client = new OpenAI({
+      baseURL: this.endpoint,
+
+      // required but ignored
+      apiKey: "ollama",
+      dangerouslyAllowBrowser: true,
+    });
+  }
+
   async __addUserMessage() {
     const textInputElement: HTMLTextAreaElement = <HTMLTextAreaElement>(
       this.renderRoot.querySelector("#user-input")
@@ -114,8 +126,8 @@ export class Chat extends LitElement {
 
     this.loading = true;
 
-    const stream = await client.chat.completions.create({
-      model: "phi3.5",
+    const stream = await this.client.chat.completions.create({
+      model: this.model,
       messages: this.messages.slice(0).slice(-200),
       stream: true,
     });
